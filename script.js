@@ -1,5 +1,5 @@
 const API_BASE_URL = 'https://pokeapi.co/api/v2';
-const POKEMON_PER_PAGE = 20;
+const POKEMON_PER_PAGE = 50;
 
 let allPokemon = [];
 let filteredPokemon = [];
@@ -29,14 +29,15 @@ const POKEMON_TYPES = [
 ];
 
 const GENERATIONS = [
-  { id: 1, name: 'Generación 1', url: `${API_BASE_URL}/generation/1` },
-  { id: 2, name: 'Generación 2', url: `${API_BASE_URL}/generation/2` },
-  { id: 3, name: 'Generación 3', url: `${API_BASE_URL}/generation/3` },
-  { id: 4, name: 'Generación 4', url: `${API_BASE_URL}/generation/4` },
-  { id: 5, name: 'Generación 5', url: `${API_BASE_URL}/generation/5` },
-  { id: 6, name: 'Generación 6', url: `${API_BASE_URL}/generation/6` },
-  { id: 7, name: 'Generación 7', url: `${API_BASE_URL}/generation/7` },
-  { id: 8, name: 'Generación 8', url: `${API_BASE_URL}/generation/8` },
+  { id: 1, name: '1.Generación Kanto', url: `${API_BASE_URL}/generation/1` },
+  { id: 2, name: '2.Generación Johto', url: `${API_BASE_URL}/generation/2` },
+  { id: 3, name: '3.Generación Hoenn', url: `${API_BASE_URL}/generation/3` },
+  { id: 4, name: '4.Generación Sinnoh', url: `${API_BASE_URL}/generation/4` },
+  { id: 5, name: '5.Generación Teselia', url: `${API_BASE_URL}/generation/5` },
+  { id: 6, name: '6.Generación Teselia', url: `${API_BASE_URL}/generation/6` },
+  { id: 7, name: '7.Generación Alola', url: `${API_BASE_URL}/generation/7` },
+  { id: 8, name: '8.Generación Galar', url: `${API_BASE_URL}/generation/8` },
+  { id: 9, name: '9.Generación paldea', url: `${API_BASE_URL}/generation/9` },
 ];
 
 // Estado filtros
@@ -57,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadAllPokemon() {
   showLoading(true);
   try {
-    const limit = 898;
+    const limit = 1000;
     const response = await fetch(`${API_BASE_URL}/pokemon?limit=${limit}`);
     const data = await response.json();
 
@@ -88,7 +89,7 @@ async function fetchPokemonDetails(url) {
 
 // Configurar filtros
 function setupFilters() {
-  // Tipos con colores femeninos/pastel
+  // Tipos con colores
   POKEMON_TYPES.forEach(type => {
     const btn = document.createElement('button');
     btn.textContent = capitalize(type);
@@ -155,8 +156,9 @@ function generationMatch(pokemonId, generationId) {
     6: [650, 721],
     7: [722, 809],
     8: [810, 898],
+    9: [899, 1000],
   };
-  const [start, end] = genRanges[generationId] || [1, 898];
+  const [start, end] = genRanges[generationId] || [1, 1000];
   return pokemonId >= start && pokemonId <= end;
 }
 
@@ -301,27 +303,27 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// 🎨 Colores femeninos/pastel para tipos
+// Colores
 function getTypeColor(type) {
   const colors = {
-    normal: 'bg-pink-200 text-gray-800',
-    fire: 'bg-red-300',
-    water: 'bg-blue-300',
-    electric: 'bg-yellow-300 text-gray-800',
-    grass: 'bg-green-300',
-    ice: 'bg-cyan-200',
-    fighting: 'bg-rose-400',
-    poison: 'bg-purple-300',
-    ground: 'bg-amber-300 text-gray-800',
-    flying: 'bg-indigo-300',
-    psychic: 'bg-pink-400',
-    bug: 'bg-lime-300 text-gray-800',
-    rock: 'bg-yellow-400 text-gray-800',
-    ghost: 'bg-violet-400',
-    dragon: 'bg-purple-500',
-    dark: 'bg-gray-600',
-    steel: 'bg-slate-300 text-gray-800',
-    fairy: 'bg-pink-300',
+    normal: 'bg-pink-400 shadow-lg shadow-pink-500/50',
+    fire: 'bg-rose-500 shadow-lg shadow-rose-500/50',
+    water: 'bg-sky-400 shadow-lg shadow-sky-500/50',
+    electric: 'bg-yellow-300 text-gray-900 shadow-lg shadow-yellow-400/50',
+    grass: 'bg-lime-400 text-gray-900 shadow-lg shadow-lime-400/50',
+    ice: 'bg-cyan-300 shadow-lg shadow-cyan-400/50',
+    fighting: 'bg-red-400 shadow-lg shadow-red-500/50',
+    poison: 'bg-fuchsia-500 shadow-lg shadow-fuchsia-500/50',
+    ground: 'bg-amber-400 text-gray-900 shadow-lg shadow-amber-500/50',
+    flying: 'bg-indigo-400 shadow-lg shadow-indigo-500/50',
+    psychic: 'bg-pink-500 shadow-lg shadow-pink-500/50',
+    bug: 'bg-green-400 text-gray-900 shadow-lg shadow-green-400/50',
+    rock: 'bg-yellow-400 text-gray-900 shadow-lg shadow-yellow-400/50',
+    ghost: 'bg-violet-500 shadow-lg shadow-violet-500/50',
+    dragon: 'bg-purple-500 shadow-lg shadow-purple-500/50',
+    dark: 'bg-gray-800 shadow-lg shadow-gray-700/50',
+    steel: 'bg-slate-400 text-gray-900 shadow-lg shadow-slate-400/50',
+    fairy: 'bg-pink-300 shadow-lg shadow-pink-300/50',
   };
-  return colors[type] || 'bg-gray-300';
+  return colors[type] || 'bg-gray-300 shadow-lg';
 }
