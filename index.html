@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>PokéDex Avanzada</title>
+  <style>
+    /* Animaciones suaves */
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body class="bg-pink-50 text-gray-800 font-sans">
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-pink-500 to-purple-500 text-white py-4 shadow-lg">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-3xl font-extrabold tracking-wide drop-shadow-lg">PokéDex Avanzada 🌸</h1>
+    </div>
+  </header>
+ 
+  <!-- Layout principal -->
+  <div class="flex flex-col lg:flex-row container mx-auto px-4 py-6 gap-6">
+    <!-- Sidebar -->
+    <aside class="w-full lg:w-1/4 space-y-6 bg-white rounded-xl shadow-lg p-4">
+      <!-- Búsqueda -->
+      <div>
+        <label for="search" class="block text-sm font-semibold mb-1 text-purple-600">Buscar por nombre:</label>
+        <input type="text" id="search" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-pink-400" placeholder="Ej: pikachu" />
+      </div>
+ 
+      <!-- Tipos -->
+      <div>
+        <h3 class="text-sm font-semibold mb-2 text-purple-600">Filtrar por tipo:</h3>
+        <div id="typeFilters" class="flex flex-wrap gap-2"></div>
+      </div>
+ 
+      <!-- Generación -->
+      <div>
+        <label for="generationSelect" class="block text-sm font-semibold mb-1 text-purple-600">Filtrar por generación:</label>
+        <select id="generationSelect" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-pink-400">
+          <option value="">Todas</option>
+        </select>
+      </div>
+ 
+      <!-- Orden -->
+      <div>
+        <label for="sortSelect" class="block text-sm font-semibold mb-1 text-purple-600">Ordenar por:</label>
+        <select id="sortSelect" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-pink-400">
+          <option value="id">ID</option>
+          <option value="name">Nombre</option>
+          <option value="height">Altura</option>
+          <option value="weight">Peso</option>
+        </select>
+      </div>
+ 
+      <!-- Limpiar filtros -->
+      <div>
+        <button id="resetFilters" class="bg-pink-500 text-white w-full py-2 rounded-lg hover:bg-pink-600 transition-all duration-300 shadow-md">
+          Limpiar filtros
+        </button>
+      </div>
+    </aside>
+ 
+    <!-- Main -->
+    <main class="w-full lg:w-3/4">
+      <!-- Loading -->
+      <div id="loading" class="text-center py-6 hidden">
+        <div class="animate-spin h-8 w-8 mx-auto border-4 border-purple-300 border-t-transparent rounded-full"></div>
+        <p class="text-gray-500 mt-2">Cargando Pokémon...</p>
+      </div>
+ 
+      <!-- Estadísticas -->
+      <div class="mb-4">
+        <p class="text-sm text-gray-600">Mostrando <span id="totalCount">0</span> Pokémon</p>
+      </div>
+ 
+      <!-- Grid de tarjetas -->
+      <div id="pokemonGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+ 
+      <!-- Paginación -->
+      <div class="flex justify-center mt-6 space-x-4">
+        <button id="prevBtn" class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-all duration-300 disabled:bg-gray-300">Anterior</button>
+        <span id="pageInfo" class="px-4 py-2 bg-white rounded-lg shadow">Página 1</span>
+        <button id="nextBtn" class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-all duration-300">Siguiente</button>
+      </div>
+    </main>
+  </div>
+ 
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-pink-200 to-purple-200 py-4 mt-10 rounded-t-xl">
+    <div class="text-center text-sm text-purple-700 font-medium">
+      Diseñado con 💖 por una desarrolladora
+    </div>
+  </footer>
+ 
+  <!-- Modal -->
+  <div id="pokemonModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4 max-h-96 overflow-y-auto shadow-lg fade-in">
+      <div class="flex justify-between items-center mb-4">
+        <h2 id="modalTitle" class="text-2xl font-bold text-pink-600"></h2>
+        <button id="closeModal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+      </div>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+ 
+  <script src="script.js"></script>
+</body>
+</html>
